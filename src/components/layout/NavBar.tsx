@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ModeToggle } from "../mode-toggler";
 
 export function Navbar() {
   return (
@@ -15,7 +16,11 @@ export function Navbar() {
       <div className="text-xl font-bold">My ToDo App</div>
 
       {/* Desktop Links */}
+
       <div className="hidden md:flex gap-6 text-sm font-medium">
+        <a href="" className="hover:text-blue-600">
+          <ModeToggle></ModeToggle>
+        </a>
         <a href="/user" className="hover:text-blue-600">
           User
         </a>
@@ -35,7 +40,11 @@ export function Navbar() {
               <Menu className="h-6 w-6" />
             </Button>
           </DropdownMenuTrigger>
+
           <DropdownMenuContent align="end">
+            <DropdownMenuItem>
+              <ModeToggle></ModeToggle>
+            </DropdownMenuItem>
             <DropdownMenuItem>
               <a href="/user">User</a>
             </DropdownMenuItem>
