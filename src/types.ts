@@ -6,3 +6,4 @@ export interface ITask {
   isCompleted: boolean;
   priority: "High" | "Medium" | "Low";
 }
+export type IFilter = "all" | "High" | "Medium" | "Low";
