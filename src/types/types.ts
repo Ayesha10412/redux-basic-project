@@ -7,3 +7,7 @@ export interface ITask {
   priority: "High" | "Medium" | "Low";
 }
 export type IFilter = "all" | "High" | "Medium" | "Low";
+export interface IUser {
+  name: string;
+  _id: string;
+}
