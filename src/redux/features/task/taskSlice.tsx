@@ -1,42 +1,22 @@
 import type { RootState } from "@/redux/store";
-import type { IFilter, ITask } from "@/types";
-import { createSlice, nanoid, type PayloadAction } from "@reduxjs/toolkit";
+import type { IFilter, ITask } from "../../../types/types";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { v4 as uuid } from "uuid";
+
 interface InitialState {
   tasks: ITask[];
   filter: IFilter;
 }
 const initialState: InitialState = {
-  tasks: [
-    {
-      id: "c0rVGc4Q1oeOlnh0gbtmo",
-      isCompleted: false,
-      title: "Repudiandae minima q",
-      description: "Aut labore Nam aut s",
-      priority: "Low",
-      dueDate: "2025-07-22T18:00:00.000Z",
-    },
-    {
-      id: "eoJstWdbs-Cv-Oa_KYn7T",
-      isCompleted: false,
-      title: "Repudiandae minima q",
-      description: "Aut labore Nam aut s",
-      priority: "Medium",
-      dueDate: "2025-07-22T18:00:00.000Z",
-    },
-    {
-      id: "neCd8eW9_LYcWXMlXH8vf",
-      isCompleted: false,
-      title: "Repudiandae minima q",
-      description: "Aut labore Nam aut s",
-      priority: "High",
-      dueDate: "2025-07-22T18:00:00.000Z",
-    },
-  ],
+  tasks: [],
   filter: "all",
 };
-type DraftTask = Pick<ITask, "title" | "description" | "dueDate" | "priority">;
+type DraftTask = Pick<
+  ITask,
+  "title" | "description" | "dueDate" | "priority" | "assignedTo"
+>;
 const createTask = (taskData: DraftTask): ITask => {
-  return { id: nanoid(), isCompleted: false, ...taskData };
+  return { id: uuid(), isCompleted: false, ...taskData };
 };
 const taskSlice = createSlice({
   name: "task",

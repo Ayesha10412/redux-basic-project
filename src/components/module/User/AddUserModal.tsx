@@ -21,7 +21,7 @@ export function AddUserModal() {
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
     const userData: IUser = {
-      _id: uuid(),
+      id: uuid(),
       name: data.name,
     };
     dispatch(addUser(userData));
