@@ -4,10 +4,10 @@ export interface ITask {
   description: string;
   dueDate: string;
   isCompleted: boolean;
-  priority: "High" | "Medium" | "Low";
+  priority: "high" | "medium" | "low";
   assignedTo: string | null;
 }
-export type IFilter = "all" | "High" | "Medium" | "Low";
+export type IFilter = "all" | "high" | "medium" | "low";
 export interface IUser {
   name: string;
   id: string;

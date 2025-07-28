@@ -30,24 +30,31 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { addTask } from "@/redux/features/task/taskSlice";
-import { selectUsers } from "@/redux/features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import type { ITask } from "@/types/types";
+import { useCreateTaskMutation } from "@/redux/api/baseApi";
+//import { addTask } from "@/redux/features/task/taskSlice";
+//import { selectUsers } from "@/redux/features/user/userSlice";
+//import { useAppDispatch, useAppSelector } from "@/redux/hook";
+//import type { ITask } from "@/types/types";
 import { formatDate } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 export function AddTaskModal() {
   const [open, setOpen] = useState(false);
-  const users = useAppSelector(selectUsers);
+  //const users = useAppSelector(selectUsers);
   const form = useForm();
-  const dispatch = useAppDispatch();
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    dispatch(addTask(data as ITask));
+  //const dispatch = useAppDispatch();
+  const [createTask, { data, isLoading, isError }] = useCreateTaskMutation();
+  console.log("Data", { data, isLoading, isError });
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const taskData = {
+      ...data,
+      isCompleted: false,
+    };
+    const res = await createTask(taskData).unwrap();
     setOpen(false);
     form.reset();
-    console.log(data);
+    console.log("Inside data", res);
   };
 
   return (
@@ -103,9 +110,9 @@ export function AddTaskModal() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="High">High</SelectItem>
-                      <SelectItem value="Medium">Medium</SelectItem>
-                      <SelectItem value="Low">Low</SelectItem>
+                      <SelectItem value="high">High</SelectItem>
+                      <SelectItem value="medium">Medium</SelectItem>
+                      <SelectItem value="low">Low</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormItem>
@@ -127,9 +134,9 @@ export function AddTaskModal() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {users.map((user) => (
+                      {/* {.map((user: ITask) => (
                         <SelectItem value={user.id}>{user.name}</SelectItem>
-                      ))}
+                      ))} */}
                     </SelectContent>
                   </Select>
                 </FormItem>
